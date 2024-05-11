@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="content-wrapper" style="margin-top: -430px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">List Product</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <table class="table">
+                <thead>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <th>Sale Price</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Update</th>
+                </thead>
+                <tbody>
+                    @foreach (var product in ViewBag.Products)
+                    {
+
+                        <tr>
+                            <td>
+                                @product.Id
+                            </td>
+                            <td>
+                                <img src="@product.Image" alt="" style="width: 5rem ;">
+                            </td>
+                            <td>
+                                @product.ProductName
+                            </td>
+                            <td>
+                                @product.CategoryName
+                            </td>
+                            <td>
+                                @product.Price
+                            </td>
+                            <td>
+                                @product.Saleprice
+                            </td>
+                            <td>
+                                @product.Quantity
+                            </td>
+                            <td>
+                                @product.StatusName
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" href="@Url.Action("Edit", "Product", new {id = product.Id})">EDIT</a>
+                                <br>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#exampleModal<?php echo $val_selectproduct['PRODUCTID'] ?>">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal<?php echo $val_selectproduct['PRODUCTID'] ?>"
+                         tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form method="post">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span>Are you sure ?</span>
+                                            <br>
+                                            <span class="text-danger">Delete product : </span>
+                                            <?php echo $val_selectproduct['PRODUCTNAME'] ?>
+                                            <input type="text" name="delete" value="<?php echo $val_selectproduct['PRODUCTID'] ?>" class="d-none">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Confirm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

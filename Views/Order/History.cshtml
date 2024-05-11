@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "Hisory Order";
+}
+<div id="historyorder">
+    <div class="d-flex flex-column align-items-center my-5">
+        <div class="section-title">
+            <h2>History Order</h2>
+        </div>
+        <div class="container">
+            <h3>
+                You have :
+                @ViewBag.Count @ViewBag.OrderStatusName Order
+            </h3>
+        </div>
+        <div class="container row">
+            <div class="col-2">
+                <div class="stickyelm">
+                    @foreach (var status in ViewBag.OrderStatus)
+                    {
+                        <div class="row">
+                            <div class="col-2">
+                                <i class="@status.Bootstapicon"></i>
+                            </div>
+                            <div class="col">
+                                <a href="@Url.Action("History", "Order", new {statusID = status.Id})">@status.Name</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col">
+                @foreach (var order in ViewBag.History)
+                {
+                    <div class="card mt-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <p><b>OrderID: </b><i>@order.Id</i></p>
+                            </div>
+                            <div class="col-6">
+                                <!-- Trigger the modal with a button -->
+                                <button type="button" class="btn btn-outline-dark rounded-0" data-bs-toggle="modal" data-bs-target="@("#detailModal" + order.Id)">Detail</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="@("detailModal" + order.Id)" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="detailModalLabel">Order Details</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                @if (ViewBag.StatusID == 1)
+                                {
+                                    <div class="modal-body">
+                                        <div class="row text-center mb-1">
+                                            <div class="col-2 fw-bold">IMG</div>
+                                            <div class="col-4 fw-bold">PRODUCTNAME</div>
+                                            <div class="col-2 fw-bold">QUANTITY</div>
+                                            <div class="col-2 fw-bold">PRICE</div>
+                                            <div class="col-2">
+                                                <form action="@Url.Action("Cancel", "Order")" method="POST">
+                                                    <input type="hidden" name="orderID" value="@order.Id">
+                                                    <button type="submit" class="btn btn-outline-dark rounded-0">CANCEL</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        @foreach (var product in order.ListProduct)
+                                        {
+                                            <div class="row text-center mb-1">
+                                                <div class="col-2">
+                                                    <img src="@product.Image" style="width: 50px;">
+                                                </div>
+                                                <div class="col-4">
+                                                    <p>@product.ProductName</p>
+                                                </div>
+                                                <div class="col-2">
+                                                    <p>@product.Quantity</p>
+                                                </div>
+                                                <div class="col-2">
+                                                    <p>@product.Price</p>
+                                                </div>
+
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="modal-body">
+                                        <div class="row text-center mb-1">
+                                            <div class="col-2 fw-bold">IMG</div>
+                                            <div class="col-4 fw-bold">PRODUCTNAME</div>
+                                            <div class="col-2 fw-bold">QUANTITY</div>
+                                            <div class="col-2 fw-bold">PRICE</div>
+                                        </div>
+                                        @foreach (var product in order.ListProduct)
+                                        {
+                                            <div class="row text-center mb-1">
+                                                <div class="col-2">
+                                                    <img src="@product.Image" style="width: 50px;">
+                                                </div>
+                                                <div class="col-4">
+                                                    <p>@product.ProductName</p>
+                                                </div>
+                                                <div class="col-2">
+                                                    <p>@product.Quantity</p>
+                                                </div>
+                                                <div class="col-2">
+                                                    <p>@product.Price</p>
+                                                </div>
+
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

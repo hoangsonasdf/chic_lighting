@@ -1,0 +1,209 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - chic_lighting</title>
+
+    <!-- Favicons -->
+    <link href="/img/favicon.png" rel="icon">
+    <link href="/img/favicon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link rel="stylesheet" href="/vendor/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/vendor/aos/aos.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/bootstrap-icon/bootstrap-icons.css">
+    <link rel="stylesheet" href="/vendor/boxicons/css/boxicons.min.css">
+    <link rel="stylesheet" href="/vendor/glightbox/css/glightbox.min.css">
+    <link rel="stylesheet" href="/vendor/swiper/swiper-bundle.min.css">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/main.css" rel="stylesheet">
+
+    <!-- CDN Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- CDN JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <main id="main">
+        <div class="container">
+            <a href="index.html" class="d-flex justify-content-center logo me-lg-0 mt-3">
+                <img src="/img/favicon.png" alt="logo" class="img-fluid m-xl-1">
+            </a>
+
+            <form method="POST" action="@Url.Action("Register", "Auth")">
+                <div class="row d-flex flex-column justify-content-center align-items-center mt-3">
+                    <h1 class="text-center">Register Form</h1>
+                    <div class="mt-5"></div>
+                    <div class="row mb-3">
+                        <div class="col-6 form-floating">
+                            <input class="form-control rounded-0 login-input bg-white" type="text" placeholder="firstname" name="Firstname">
+                            <label>First Name:</label>
+                            @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("NullFirstname"))
+                            {
+                                <p style="color: red;">@ViewBag.ErrorList["NullFirstname"]</p>
+                            }
+                        </div>
+                        <div class="col-6 form-floating">
+                            <input class="form-control rounded-0 login-input bg-white" type="text" placeholder="lastname" name="Lastname">
+                            <label>Last Name:</label>
+                            @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("NullLastname"))
+                            {
+                                <p style="color: red;">@ViewBag.ErrorList["NullLastname"]</p>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-12 form-floating mb-3">
+                        <input class="form-control rounded-0 login-input bg-white" type="text" placeholder="username" name="Username">
+                        <label>Username:</label>
+                        @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("NullUsername"))
+                        {
+                            <p style="color: red;">@ViewBag.ErrorList["NullUsername"]</p>
+                        }
+                        @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("ExistUsername"))
+                        {
+                            <p style="color: red;">@ViewBag.ErrorList["ExistUsername"]</p>
+                        }
+                    </div>
+                    <div class="col-12 form-floating mb-3">
+                        <input class="form-control rounded-0 login-input bg-white" type="email" placeholder="e-mail" name="Email">
+                        <label>E-Mail:</label>
+                        @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("NullEmail"))
+                        {
+                            <p style="color: red;">@ViewBag.ErrorList["NullEmail"]</p>
+                        }
+                        @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("InvalideEmail"))
+                        {
+                            <p style="color: red;">@ViewBag.ErrorList["InvalideEmail"]</p>
+                        }
+                        @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("ExistEmail"))
+                        {
+                            <p style="color: red;">@ViewBag.ErrorList["ExistEmail"]</p>
+                        }
+                    </div>
+                    <div class="col-12 form-floating mb-3">
+                        <input class="form-control rounded-0 login-input bg-white" type="text" placeholder="address" name="Address">
+                        <label>Address:</label>
+                        @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("NullAddress"))
+                        {
+                            <p style="color: red;">@ViewBag.ErrorList["NullAddress"]</p>
+                        }
+                    </div>
+                    <div class="col-12 form-floating mb-3">
+                        <input class="form-control rounded-0 login-input bg-white" type="password" placeholder="password" name="Password">
+                        <label>Password:</label>
+                        @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("NullPassword"))
+                            {
+                            <p style="color: red;">@ViewBag.ErrorList["NullPassword"]</p>
+                            }
+                    </div>
+                    <div class="col-12 form-floating mb-5">
+                        <input class="form-control rounded-0 login-input bg-white" type="password" placeholder="confirm-password" name="ConfirmPassword">
+                        <label>Confirm Password:</label>
+                        @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("NullConfirmPassword"))
+                        {
+                            <p style="color: red;">@ViewBag.ErrorList["NullConfirmPassword"]</p>
+                        }
+                        @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("NotMatch"))
+                        {
+                            <p style="color: red;">@ViewBag.ErrorList["NotMatch"]</p>
+                        }
+                    </div>
+                    <div class="d-flex justify-content-between mb-5">
+                        <button type="reset" class="btn btn-lg btn-black col-2">Reset</button>
+                        <button type="submit" class="btn btn-lg btn-outline-dark col-4">Register</button>
+                    </div>
+                    <div class="text-center mb-3">
+                        <p>
+                            <button type="button" class="btn btn-link" name="getbacksignin" onclick="window.location.href='@Url.Action("Login", "Auth")'"><i class="bi bi-arrow-up-left-circle"></i> Go back to Sign in page</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="mt-5">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-info">
+                            <h3>Chic & Lighting</h3>
+                            <p>
+                                Hanoi University, Nguyen Trai <br>
+                                Thanh Xuan, Hanoi, Vietnam.<br><br>
+                                <strong>Phone:</strong> +84 92 702 3447<br>
+                                <strong>Email:</strong> chicandlighting@gmail.com<br>
+                            </p>
+                            <div class="social-links mt-3">
+                                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Team</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Team 7 - EPROJECT</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <h4>Our Newsletter</h4>
+                        <p>Get exclusive discounts and design inspiration straight to your inbox. Subscribe now!</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Team-7 / E-PROJECT</span></strong>
+            </div>
+            <div class="credits">
+                Designed by <a href="#">Team 7</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="/vendor/aos/aos.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/vendor/masonry/masonry.pkgd.min.js"></script>
+
+    <!-- Main JavaScript File -->
+    <script src="/js/main.js"></script>
+</body>

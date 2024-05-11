@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+}
+<div id="cart">
+    <div class="d-flex flex-column align-items-center my-5">
+        <div class="section-title">
+            <h2>PROFILE</h2>
+        </div>
+        <div class="container">
+            <div>
+                <label>FIRST NAME</label>
+                <input class="form-control" type="text" placeholder="@ViewBag.User.FirstName" readonly>
+            </div>
+            <div>
+                <label>LAST NAME</label>
+                <input class="form-control" type="text" placeholder="@ViewBag.User.LastName" readonly>
+            </div>
+            <div>
+                <label>ADDRESS</label>
+                <input class="form-control" type="text" placeholder="@ViewBag.User.Address" readonly>
+            </div>
+            <div>
+                <label>EMAIL</label>
+                <input class="form-control" type="text" placeholder="@ViewBag.User.Email" readonly>
+            </div>
+            <div>
+                <label>PASSWORD</label>
+                <input class="form-control" type="text" placeholder="************** Click here to change password" id="password" readonly>
+            </div>
+            @if (ViewBag.Response != null && ViewBag.Response.ContainsKey("Empty"))
+            {
+                <p style="color: red;">@ViewBag.Response["Empty"]</p>
+            }
+            @if (ViewBag.Response != null && ViewBag.Response.ContainsKey("NotMatch"))
+            {
+                <p style="color: red;">@ViewBag.Response["NotMatch"]</p>
+            }
+            @if (ViewBag.Response != null && ViewBag.Response.ContainsKey("InvalidPass"))
+            {
+                <p style="color: red;">@ViewBag.Response["InvalidPass"]</p>
+            }
+            @if (ViewBag.Response != null && ViewBag.Response.ContainsKey("Success"))
+            {
+                <p style="color: green;">@ViewBag.Response["Success"] </p>
+            }
+            <div id="changepass">
+                <form method="POST" asp-controller="User" asp-action="Change" >
+                    <div class="mb-3 mt-3">
+                        <label for="">Current Password</label>
+                        <input type="password" id="currentpass" name="CurrentPass">
+                    </div>
+                    <div class="mb-3">
+                        <label for="">New Password</label>
+                        <input type="password" id="newpass" name="NewPass">
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Confirm New Password</label>
+                        <input type="password" id="confirmnewpass" name="ConfirmNewPass">
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-outline-dark rounded-0" id="submitchange" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#changepass").hide();
+    });
+
+    $("#password").click(function () {
+        $("#changepass").show();
+    })
+
+</script>

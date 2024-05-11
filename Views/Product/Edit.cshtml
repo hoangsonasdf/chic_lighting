@@ -1,0 +1,130 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="content-wrapper" style="margin-top: -430px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Edit Product</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <form method="POST" enctype="multipart/form-data" action="@Url.Action("Edit", "Product", new {id = ViewBag.Product.Id})">
+                <div>
+                    <label for="">Product name :</label>
+                    <input class="form-control" type="text" name="ProductName" value="@ViewBag.Product.ProductName">
+                    @if (ViewBag.Response != null && ViewBag.Response.ContainsKey("NullProductName"))
+                    {
+                        <p style="color: red;">@ViewBag.Response["NullProductName"]</p>
+                    }
+                </div>
+                <div class="mb-3">
+                </div>
+                <div>
+                    <label for="">Quantity :</label>
+                    <input class="form-control" type="number" name="Quantity" value="@ViewBag.Product.Quantity">
+                    @if (ViewBag.Response != null && ViewBag.Response.ContainsKey("NullQuantity"))
+                    {
+                        <p style="color: red;">@ViewBag.Response["NullQuantity"]</p>
+                    }
+                </div>
+                <div class="mb-3">
+                </div>
+                <div>
+                    <label for="">Price :</label>
+                    <input class="form-control" type="number" name="Price" value="@ViewBag.Product.Price">
+                    @if (ViewBag.Response != null && ViewBag.Response.ContainsKey("NullPrice"))
+                    {
+                        <p style="color: red;">@ViewBag.Response["NullPrice"]</p>
+                    }
+                </div>
+                <div class="mb-3">
+                </div>
+                <div>
+                    <label for="">Status</label>
+                    <select class="form-control" name="ProductStatusId">
+                        @foreach (var status in ViewBag.Statuses)
+                        {
+                            if (ViewBag.Product.ProductStatusId == status.Id)
+                            {
+                                <option value="@status.Id" selected>
+                                    @status.Name
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@status.Id">
+                                    @status.Name
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                </div>
+                <div>
+                    <label for="">Sale Price :</label>
+                    <input class="form-control" type="number" name="Saleprice" value="@ViewBag.Product.Saleprice">
+                </div>
+                <div class="mb-3">
+                </div>
+                <div>
+                    <label for="">Category</label>
+                    <!-- <input class="form-control" type="text" name="" id=""> -->
+                    <select class="form-control" name="CategoryId">
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            if (ViewBag.Product.CategoryId == category.Id)
+                            {
+                                <option value="@category.Id" selected>
+                                    @category.CategoryName
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@category.Id">
+                                    @category.CategoryName
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                </div>
+                <div>
+                    <label for="">IMG</label>
+                    <input class="form-control" type="file" name="Image">
+                </div>
+                <div class="mb-3">
+                </div>
+                <div class="mb-3">
+                    <img src="@ViewBag.Product.Image" alt="" style="width: 15rem ;">
+                </div>
+                <div>
+                    <label for="">Product Description :</label>
+                    <textarea name="Description" cols="30" rows="10">
+                        @ViewBag.Product.Description
+                        </textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success" name="apply">Apply</button>
+                    @if (ViewBag.Response != null && ViewBag.Response.ContainsKey("Success"))
+                    {
+                        <p style="color: green;">@ViewBag.Response["Success"]</p>
+                    }
+                </div>
+            </form>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

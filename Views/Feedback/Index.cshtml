@@ -1,0 +1,126 @@
+﻿@{
+    ViewData["Title"] = "Feedback";
+}
+<main id="main">
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Contact</h2>
+                <p>Contact Us</p>
+            </div>
+        </div>
+
+        <div class="container" data-aos="fade-up">
+
+            <div class="row mt-5">
+
+                <div class="col-lg-4">
+                    <div class="info">
+                        <div class="address">
+                            <i class="bi bi-geo-alt"></i>
+                            <h4>Location:</h4>
+                            <p>Hanoi University, Nguyen Trai, Thanh Xuan, Hanoi.</p>
+                        </div>
+
+                        <div class="open-hours">
+                            <i class="bi bi-clock"></i>
+                            <h4>Open Hours:</h4>
+                            <p>
+                                Monday-Saturday:<br>
+                                9:00 AM - 23:00 PM
+                            </p>
+                        </div>
+
+                        <div class="email">
+                            <i class="bi bi-envelope"></i>
+                            <h4>Email:</h4>
+                            <p>chicandlighting@gmail.com</p>
+                        </div>
+
+                        <div class="phone">
+                            <i class="bi bi-phone"></i>
+                            <h4>Call:</h4>
+                            <p>+84 92 702 3447</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-8 mt-5 mt-lg-0">
+
+                    <form method="POST" role="form" class="php-email-form" action="@Url.Action("Send", "Feedback")">
+                        <div class="row mb-2">
+                            <p class="text-center"><i>How satisfied are you with our company overall?</i></p>
+                            <div class="d-flex justify-content-center">
+                                <div class="form-check mx-2">
+                                    <input class="form-check-input" type="radio" name="Rate" value="3">
+                                    <label class="form-check-label">
+                                        <i>Good</i>
+                                    </label>
+                                </div>
+                                <div class="form-check mx-2">
+                                    <input class="form-check-input" type="radio" name="Rate" value="2">
+                                    <label class="form-check-label">
+                                        <i>Average</i>
+                                    </label>
+                                </div>
+                                <div class="form-check mx-2">
+                                    <input class="form-check-input" type="radio" name="Rate" value="1">
+                                    <label class="form-check-label">
+                                        <i>Bad</i>
+                                    </label>
+                                </div>
+                                @if (ViewBag.ErrorList != null && ViewBag.ErrorList.ContainsKey("NullRate"))
+                                {
+                                    <p style="color: red;">@ViewBag.ErrorList["NullRate"]</p>
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <input type="text" class="form-control" name="Name" id="name"
+                                       placeholder="Your Name">
+                            </div>
+                            @if (ViewBag.Message != null && ViewBag.Message.ContainsKey("NullName"))
+                            {
+                                <p style="color: red;">@ViewBag.Message["NullName"]</p>
+                            }
+                            <div class="col-md-6 form-group mt-3 mt-md-0">
+                                <input type="email" class="form-control" name="Email" id="email"
+                                       placeholder="Your Email">
+                            </div>
+                            @if (ViewBag.Message != null && ViewBag.Message.ContainsKey("NullEmail"))
+                            {
+                                <p style="color: red;">@ViewBag.Message["NullEmail"]</p>
+                            }
+                        </div>
+                        <div class="form-group mt-3">
+                            <textarea class="form-control" name="Comment" rows="8" placeholder="Message"
+                                      ></textarea>
+                        </div>
+                        @if (ViewBag.Message != null && ViewBag.Message.ContainsKey("NullComment"))
+                        {
+                            <p style="color: red;">@ViewBag.Message["NullComment"]</p>
+                        }
+                        @if (ViewBag.Message != null && ViewBag.Message.ContainsKey("Success"))
+                        {
+                            <p style="color: green;">@ViewBag.Message["Success"]</p>
+                        }
+                        <div class="text-end"><button class="btn btn-dark rounded-0" type="submit">Send Message</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5" data-aos="fade-up">
+            <iframe style="border:0; width: 100%; height: 350px;"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.091161088926!2d105.79210327430486!3d20.988982589145426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135adb29ed54487%3A0xbe22035eae87b5d7!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBIw6AgTuG7mWk!5e0!3m2!1svi!2s!4v1712296319503!5m2!1svi!2s"
+                    frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section><!-- End Contact Section -->
+
+</main><!-- End #main -->

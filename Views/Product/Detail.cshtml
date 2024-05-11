@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Detail";
+}
+<!-- main content -->
+<div id="product-detail" class="container">
+    <div class="section-title">
+        <h2>Product Detail</h2>
+        <p>“Went for grocery, came back happy”</p>
+    </div>
+    <div class="d-flex flex-row justify-content-between">
+        <div id="carouselExampleIndicators" class="carousel slide gallery" data-bs-ride="true">
+            <div class="carousel-inner">
+                <div class="carousel-item gallery-item active" style="height: 30em;">
+                    <a href="@ViewBag.Product.Image" class="gallery-lightbox"
+                       data-gall="gallery-item">
+                        <img src="@ViewBag.Product.Image" alt="..." class="img-fluid">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- information -->
+        <div class="productinfor justify-content-between">
+            <div class="mb-5">
+                <p>@ViewBag.Product.ProductName</p>
+                <p>$@ViewBag.Product.Price</p>
+                <p>
+                    On sale: : @if (ViewBag.Product.Saleprice != null)
+                    {
+                        <b style="color: red;">$ @ViewBag.Product.Saleprice </b>
+                    }
+                    else
+                    {
+                        <i style="color: #7F8487;">event comming soon...</i>
+                    }
+                </p>
+            </div>
+            <form method="POST" action="@Url.Action("Add", "Cart")">
+                <input type="hidden" name="ProductId" value="@ViewBag.Product.Id">
+                <input type="number" name="Quantity" value="1" min="1" max="@ViewBag.Product.Quantity">
+                <br>
+                <button type="submit" class="btn btn-outline-dark rounded-0 mt-4 w-75" name="addtocart">Add to cart</button>
+            </form>
+        </div>
+        <!-- end information -->
+    </div>
+</div>

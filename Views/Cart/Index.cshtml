@@ -1,0 +1,176 @@
+﻿@{
+    ViewData["title"] = "Cart";
+}
+@if (ViewBag.Products.Count == 0)
+{
+    <div id="cart">
+        <div class="d-flex flex-column align-items-center my-5">
+            <b>(0)</b>
+            <i>You haven't added any product yet</i>
+            <p>Figure out more from <a class="btn-link" href="@Url.Action("Index", "Product")">Our Product</a></p>
+        </div>
+    </div>
+}
+else
+{
+    <div id="cart">
+        <div class="d-flex flex-column align-items-center my-5">
+            <div class="section-title">
+                <h2>Shopping Cart</h2>
+                <p>“You deserve the best”</p>
+            </div>
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Img</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in ViewBag.Products)
+                        {
+
+                            <tr>
+                                <td><img src="@product.ProductImage" alt=""></td>
+                                <td>
+                                    <i>
+                                        @product.ProductName
+                                    </i>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Up", "Cart", new {id = product.Id})"
+                               class="btn btn-outline-dark rounded-0 mx-2" style="padding: 0 4px;">
+                                        <i class="bi bi-plus"></i>
+                                    </a>
+                                    @product.Quantity
+                                    <a href="@Url.Action("Down", "Cart", new {id = product.Id})"
+                               class="btn btn-outline-dark rounded-0 mx-2" style="padding: 0 4px;">
+                                        <i class="bi bi-dash"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    @product.Price
+                                </td>
+                                <td>
+                                    <form method="POST" action="@Url.Action("Delete", "Cart")">
+                                        <input type="hidden" name="ProductId" value="@product.ProductId">
+                                        <button type="submit" class="btn btn-outline-dark rounded-0"
+                                        name="delete">
+                                            DELETE
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+                <div class="container">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h4>Cart total :</h4>
+                        <span class="mx-2">
+                            $ @ViewBag.Total
+                        </span>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-dark rounded-0" class="btn btn-primary" data-bs-toggle="modal"
+                       data-bs-target="#exampleModal">Place Order</a>
+                    </div>
+                    <!-- Modal -->
+                    <form method="POST" action="@Url.Action("Add", "Order")">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="exampleModalLabel">Infomation</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @{
+                                            var index = 0;
+                                            foreach (var product in ViewBag.Products)
+                                            {
+
+                                                <input type="hidden" value="@product.ProductId" name="ProductInfor[@index].ProductID">
+                                                <input type="hidden" value="@product.Quantity" name="ProductInfor[@index].Quantity">
+                                                <input type="hidden" value="@product.Price" name="ProductInfor[@index].Price">
+                                                index++;
+                                            }
+                                        }
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">First Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Small" aria-describedby="firstname" id="firstname" name="FirstName">
+                                        </div>
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Last Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Small" aria-describedby="lastname" id="lastname" name="LastName">
+                                        </div>
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Address</span>
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Small" aria-describedby="address" id="address" name="Address">
+                                        </div>
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Phone</span>
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Small" aria-describedby="phone" id="phone" name="Phone">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="payment">Payment</label>
+                                            </div>
+                                            <select class="custom-select" id="payment" name="Payment">
+                                                @foreach (var payment in ViewBag.Payments)
+                                                {
+                                                    <option value="@payment.Id" selected>@payment.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Note</span>
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Small" aria-describedby="note" id="note" name="Note">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-dark rounded-0"
+                                            data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="submit" class="btn btn-outline-dark rounded-0" id="confirm">Confirm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (TempData["AlertMessage"] != null)
+{
+    <script>
+        alert('@TempData["AlertMessage"]');
+    </script>
+}
+@if (TempData["OrderSuccess"] != null)
+{
+    <script>
+        alert('@TempData["OrderSuccess"] ');
+    </script>
+}
+

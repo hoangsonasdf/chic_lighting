@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="wrapper">
+    <div class="content-wrapper" style="margin-top: -660px;">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <form action="@Url.Action("TopCategories", "Dashboard")" method="GET">
+                        <div class="row">
+                            <div class="p-3 col">
+                                <label for="Month" class="form-label">Month:</label>
+                                <select class="form-select form-select-lg w-50" aria-label=".form-select-lg example" name="Month">
+                                    @foreach (var month in ViewBag.Months)
+                                    {
+                                        <option value="@month.Value">@month.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="p-3 col">
+                                <label for="Year" class="form-label">Year:</label>
+                                <select class="form-select form-select-lg w-50" aria-label=".form-select-lg example" name="Year">
+                                    @foreach (var year in ViewBag.Years)
+                                    {
+                                        <option value="@year.Value">@year.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="p-3 col-2">
+                                <button type="submit" class="btn btn-success w-50">View</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="chart">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@{
+    var labels = ViewBag.Labels;
+    var values = ViewBag.Values;
+}
+<script>
+    // Get the canvas element
+    var canvas = document.getElementById('barChart');
+    var chartData = @Html.Raw(Json.Serialize(values));
+    var chartLabels = @Html.Raw(Json.Serialize(labels));
+
+    // Define your chart data
+    var chartData = {
+        labels: chartLabels,
+        datasets: [{
+            label: 'The amount of sold (products)', // Label for the dataset
+            data: chartData,
+            backgroundColor: '#5CB646' // Bar color
+        }]
+    };
+
+    // Create the chart
+    var chart = new Chart(canvas, {
+        type: 'bar',
+        data: chartData,
+        options: {
+            indexAxis: 'y', // Rotate the chart to make it horizontal
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+

@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Product Page";
+}
+<div id="product">
+    <div class="lstype text-light d-flex flex-row">
+
+        <!-- Sidebar -->
+        <div class="lstproduct stickyelm mt-4">
+            <a href="#">Our Product</a>
+            <ul>
+                <a href="#">
+                <li data-type="viewall">View All</li>
+                </a>
+                <a href="#">
+                <li data-type="ceiling">Ceiling Lights</li>
+                </a>
+                <a href="#">
+                <li data-type="wall">Wall Lights</li>
+                </a>
+                <a href="#">
+                <li data-type="lamp">Lamps</li>
+                </a>
+                <a href="#">
+                <li data-type="outdoor">Outdoor Lights</li>
+                </a>
+                <a href="#">
+                <li data-type="fan">Fans </li>
+                </a>
+                <a href="#">
+                <li data-type="accents">Accents </li>
+                </a>
+            </ul>
+        </div>
+        <!-- end nav bar -->
+        <!-- product -->
+        <div class="mainproduct">
+            <div class="d-flex flex-row mt-4 mb-5 ">
+                <h6 class="font-weight-light" style="margin-left: 4%;">View All</h6>
+
+            </div>
+            <div class="d-flex flex-row mt-4 mb-5 stickyelm lstfilterbtn">
+                <button type="button" class="bi bi-filter"> FILTER </button>
+                <button type="button" class="filterbt" data-type="bestseller">BEST SELLER</button>
+                <button type="button" class="filterbt" data-type="sale">SALE</button>
+                <button type="button" class="filterbt" data-type="viewall"
+                        style="background-color: black; color: white ;">
+                    VIEW ALL
+                </button>
+            </div>
+            <!-- shopping card -->
+            <div class="shopcard gallery">
+                @foreach (var product in ViewBag.Products)
+                {
+                    <form class="card @product.CategoryName @product.StatusName viewall" action="@Url.Action("Add", "Cart")" method="POST">
+                        <div id="@product.Id">
+                            <div class="card-img gallery-item @product.StatusName">
+                                <a href="@Url.Action("Detail", "Product", new {id = product.Id})"><img src="@product.Image" class="card-img-top" alt="..."></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <a href="@Url.Action("Detail", "Product", new {id = product.Id})" style="width: 86%;">
+                                        <p class="card-title">@product.ProductName</p>
+                                    </a>
+                                    <input type="hidden" name="ProductId" value="@product.Id">
+                                    <input type="hidden" name="Quantity" value="1">
+                                    @if (product.StatusName != "outofstock")
+                                    {
+                                        <button type="submit" name="addtocart" class="bi bi-cart" title="Add to cart"></button>
+                                    }
+                                    else
+                                    {
+                                        <button class="bi bi-cart" title="Add to cart"></button>
+                                    }
+                                </div>
+                                <p class="card-price">
+                                    $ @product.Price
+                                    <span class="card-sale-price @product.StatusName">Sale off to: $ @product.Saleprice</span>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                }
+            </div>
+            <!--end shopping card -->
+        </div>
+        <!-- end product -->
+    </div>
+</div>

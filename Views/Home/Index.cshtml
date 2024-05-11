@@ -1,0 +1,206 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<main id="main">
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1>Welcome to <span>CHIC & LIGHTING</span></h1>
+                    <h2>Providing great products for more than 15 years!</h2>
+
+                    <div class="mt-3">
+                        <a href="#product" class="btn btn-dark rounded-0">View More</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
+                    <a href="https://www.youtube.com/watch?v=KyEJ3rOlE0g" class="glightbox play-btn"></a>
+                </div>
+
+            </div>
+        </div>
+    </section><!-- End Hero -->
+    <!-- ======= Products Section ======= -->
+
+    <section id="product" class="product">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Our Products</h2>
+                <p>Selling The Best Products</p>
+            </div>
+
+            <div class="events-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <div class="swiper-slide">
+                            <div class="row d-flex justify-content-xl-between justify-content-sm-center">
+                                <div class="col-lg-6" style="width:24em;">
+                                    <img src="@category.Image" class="img-fluid" alt="">
+                                </div>
+                                <div class="col-lg-6 pt-4 pt-lg-0 content">
+                                    <h3>@category.CategoryName</h3>
+                                    <p class="fst-italic">
+                                        @category.Description
+                                    </p>
+                                    <div class="text-end mt-4">
+                                        <a href="@Url.Action("Index", "Product")" class="btn btn-dark fadeInUp">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <div class="mt-5"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+        </div>
+    </section><!-- End Products Section -->
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Why Us</h2>
+                <p>Why Choose Our Products</p>
+            </div>
+
+            <div class="row">
+                @{
+                    var index = 1;
+                    foreach (var feedback in ViewBag.Feedback)
+                    {
+                        <div class="col-lg-4">
+                            <div class="box" data-aos="zoom-in" data-aos-delay="100">
+                                <span>@Html.Raw("0" + index)</span>
+                                <h4>@feedback.Name</h4>
+                                <p>
+                                    @feedback.Comment
+                                </p>
+                            </div>
+                        </div>
+                        index++;
+                    }
+                }
+            </div>
+
+        </div>
+    </section><!-- End Why Us Section -->
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>Gallery</h2>
+                <p>Some photos from Our Products</p>
+            </div>
+        </div>
+
+        <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row g-0" data-masonry='{"percentPosition": true}'>
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-2.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-3.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-4.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-5.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-6.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-7.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-8.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-9.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-9.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-10.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-10.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-11.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-11.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        <a href="/img/gallery/gallery-12.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                            <img src="/img/gallery/gallery-12.jpg" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Gallery Section -->
+
+</main><!-- End #main -->
